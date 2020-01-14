@@ -27,36 +27,11 @@ whether devoured or not.)
 
 ### Process Flow
 ```
-    A survey is first offered to the user with 10 questions. Each answer is on a scale of 1 to 5 based on 
-    how much the user agrees or disagrees with a question.
-
-    Data is stored inside of app/data/friends.js as an array of objects. Each of these objects
-    has the following format:
-            {
-                "name":"SomeName",
-                "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/some-pic.jpg",
-                "scores":[
-                            5,
-                            1,
-                            4,
-                            4,
-                            5,
-                            1,
-                            2,
-                            5,
-                            4,
-                            1
-                        ]
-            }
-
-    Compatible friends are determined by converting each user's scores into a simple array of 
-    numbers and then taking the absolute value of the difference between each of the current 
-    user's scores and each of the scores of other users, question by question. The 10 
-    differences are then summed up to determine the 'Total Difference' score. The closest match
-    will be the two users with the least amount of difference (i.e the lowest Total Difference).
-
-    Once the user's most compatible friend is found a modal pop-up displays the compatible 
-    friend's name and picture.
+    - HTTP Request comes in from a client browser
+    - The app routes the HTTP Request to the appropriate controller
+    - Controller uses the model abstraction to get the needed data from the db
+    - Controller populates the appropriate view with the returned data
+    - Controller sends an HTTP response back to the client browser
 
 ```
 
@@ -64,10 +39,11 @@ whether devoured or not.)
 
 ```
 Technology Requirements:
-    - HTML
+    - HTML/CSS
     - Javascript
     - node.js
     - Express
+    - MySQL
     - Source Control: Github
     - Hosting: Heroku
     
@@ -76,25 +52,74 @@ Technology Requirements:
 ### Implementation
 
 ```
-User Interface:
-    home.html - home/default page.
-    survey.html - user survey page.
+<u>Server</u>
+    server.js - listens for requests, sends responses, uses burgers_controller.js for routing
 
-Node Dependencies:
-    "express": "^4.17.1"
+<u>MySQL Database</u>
+    schema.sql - creates the burgers_db with one table, burgers that has the following columns:
+        - id: an auto incrementing int that serves as the primary key
+        - burger_name: string
+        - devoured: boolean
 
-Routes:
-    htmlRoutes.js file includes two routes:
-        - A GET Route to /survey which displays the survey page.
+    seeds.sql - populates the burgers table of burgers_db with 3 initial burgers
 
-        - A default, catch-all route that leads to home.html which displays the home page.
+<u>Config</u>
+    connection.js - connects Node to the MySQL server and exports the connection
 
-    apiRoutes.js file contains two routes:
-        - A GET route with the url /api/friends. This is used to display a JSON of all 
-        possible friends.
+    orm.js - abstraction layer containing the following MySQL functionality for use by the controllers:
+        - selectAll()
+        - insertOne()
+        - updateOne()
 
-        - A POST route /api/friends. This is used to handle incoming survey results. 
-        This route is also used to handle the compatibility logic.
+<u>Model</u>
+    burger.js - uses the methods in orm.js to get the requested burger data from burger_db
+
+<u>Controller</u>
+    burgers_controller.js - contains the routing logic for the application
+
+<u>Views</u>
+    index.handlebars - main page of the user interface, contains the handlebars rendering template
+
+    layouts/main.handlebars - main page html wrapper
+
+<u>Node Dependencies</u>
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "mysql": "^2.17.1"
+
+<u>Directory Structure</u>
+    .
+├── config
+│   ├── connection.js
+│   └── orm.js
+│ 
+├── controllers
+│   └── burgers_controller.js
+│
+├── db
+│   ├── schema.sql
+│   └── seeds.sql
+│
+├── models
+│   └── burger.js
+│ 
+├── node_modules
+│ 
+├── package.json
+│
+├── public
+│   └── assets
+│       ├── css
+│       │   └── burger_style.css
+│       └── img
+│           └── burger.png
+│   
+├── server.js
+│
+└── views
+    ├── index.handlebars
+    └── layouts
+        └── main.handlebars
 
 ```
 
@@ -103,11 +128,18 @@ Routes:
 ### Setup
 
 ```
-1.) Clone the app to your local system: 'git clone git@github.com:kbrowngithub/FriendFinder.git'
+1.) Clone the app to your local system: 'git clone git@github.com:kbrowngithub/Eat-Da-Burger.git'
 
-2.) From a terminal cd into the root directory of your FriendFinder instance and run
+2.) From a terminal cd into the root directory of your Eat-Da-Burger instance and run
 the command:  npm install
 This will install the required node packages.
+
+3.) cd into the db directory and start MySQL command line tool and login: mysql -u root -p
+
+4.) At the mysql> prompt run   <i>source schema.sql</i>   then run   <i>source seeds.sql</i>
+
+5.) Type <i>exit</i> at the mysql> prompt
+
 ```
 
 ### Heroku deployment instructions
@@ -120,8 +152,8 @@ https://du.bootcampcontent.com/denver-coding-bootcamp/DU-VIRT-FSF-PT-09-2019-U-O
 ### Execution
 
 ```
-To execute the FriendFinder app locally, from a terminal window cd into the root
-directory of the FriendFinder app and start the server by typing:  
+To execute the Eat-Da-Burger app locally, from a terminal window cd into the root
+directory of the Eat-Da-Burger app and start the server by typing:  
     
     node server.js
 
@@ -130,6 +162,6 @@ You should see something similar to the following output:
     Server listening on: http://localhost:8080
     connected as id 236
 
-Once the server is up and listening, in a web browser browse to http://localhost:8080/home
+Once the server is up and listening, in a web browser browse to http://localhost:8080/
 ```
 
