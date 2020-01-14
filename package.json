@@ -1,0 +1,24 @@
+{
+  "name": "Eat-Da-Burger",
+  "version": "1.0.0",
+  "description": "```\r 'Eat-Da-Burger!' is a restaurant app that lets users input the names of burgers they'd like \r to eat.\r ```",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kbrowngithub/Eat-Da-Burger.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kbrowngithub/Eat-Da-Burger/issues"
+  },
+  "homepage": "https://github.com/kbrowngithub/Eat-Da-Burger#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
