@@ -1,24 +1,30 @@
-<h1>Burgers</h1>
-
-<h2>Burgers that are not devoured!</h2>
-
-<ul>
-  {{#each burgers}}
-    {{#unless devoured}}
+<div class="row">
+  <div class="column left">
+    <h2>Available Burgers</h2>
+    <ul>
+      {{#each burgers}}
+      {{#unless devoured}}
       {{> burgers/burger-block devoured=true}}
-    {{/unless}}
-  {{/each}}
-</ul>
-
-<h2>Burgers that are devoured!</h2>
-
-<ul>
-  {{#each burgers}}
-    {{#if devoured}}
+      {{/unless}}
+      {{/each}}
+    </ul>
+  </div>
+  <div class="column middle">
+    <h1>Burgers</h1>
+  </div>
+  <div class="column right">
+    <h2>Devoured Burgers</h2>
+    <ul>
+      {{#each burgers}}
+      {{#if devoured}}
       {{> burgers/burger-block devoured=false}}
-    {{/if}}
-  {{/each}}
-</ul>
+      {{/if}}
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
+<hr>
 
 <h2>Add a Burger</h2>
 <form class="create-form">
