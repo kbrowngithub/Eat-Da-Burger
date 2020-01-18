@@ -52,10 +52,10 @@ Technology Requirements:
 ### Implementation
 
 ```
-<u>Server</u>
+Server
     server.js - listens for requests, sends responses, uses burgers_controller.js for routing
 
-<u>MySQL Database</u>
+MySQL Database
     schema.sql - creates the burgers_db with one table, burgers that has the following columns:
         - id: an auto incrementing int that serves as the primary key
         - burger_name: string
@@ -63,7 +63,7 @@ Technology Requirements:
 
     seeds.sql - populates the burgers table of burgers_db with 3 initial burgers
 
-<u>Config</u>
+Config
     connection.js - connects Node to the MySQL server and exports the connection
 
     orm.js - abstraction layer containing the following MySQL functionality for use by the controllers:
@@ -71,23 +71,23 @@ Technology Requirements:
         - insertOne()
         - updateOne()
 
-<u>Model</u>
+Model
     burger.js - uses the methods in orm.js to get the requested burger data from burger_db
 
-<u>Controller</u>
+Controller
     burgers_controller.js - contains the routing logic for the application
 
-<u>Views</u>
+Views
     index.handlebars - main page of the user interface, contains the handlebars rendering template
 
     layouts/main.handlebars - main page html wrapper
 
-<u>Node Dependencies</u>
+Node Dependencies
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
     "mysql": "^2.17.1"
 
-<u>Directory Structure</u>
+Directory Structure
     .
 ├── config
 │   ├── connection.js
@@ -136,9 +136,9 @@ This will install the required node packages.
 
 3.) cd into the db directory and start MySQL command line tool and login: mysql -u root -p
 
-4.) At the mysql> prompt run   <i>source schema.sql</i>   then run   <i>source seeds.sql</i>
+4.) At the mysql> prompt run   *source schema.sql*   then run   *source seeds.sql*
 
-5.) Type <i>exit</i> at the mysql> prompt
+5.) Type *exit* at the mysql> prompt
 
 ```
 
