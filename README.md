@@ -136,9 +136,9 @@ This will install the required node packages.
 
 3.) cd into the db directory and start MySQL command line tool and login: mysql -u root -p
 
-4.) At the mysql> prompt run   *source schema.sql*   then run   *source seeds.sql*
+4.) At the mysql> prompt run   source schema.sql   then run   source seeds.sql
 
-5.) Type *exit* at the mysql> prompt
+5.) Type exit at the mysql> prompt
 
 ```
 
